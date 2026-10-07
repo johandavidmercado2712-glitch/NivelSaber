@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/base.css?v=2">
+<link rel="stylesheet" href="../css/paginas.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.setAttribute('data-tema', localStorage.getItem('tema') || 'claro');</script>
+    <title>Mis objetivos | NIVELSABER</title>
+    
+    
+    
+    
+    
+    
+</head>
+<body class="con-sidebar" data-requiere-sesion data-rol-requerido="estudiante">
+
+    <aside class="sidebar">
+        <p class="sidebar-titulo">SECCIONES</p>
+        <nav>
+            <a href="../index.html">🏠 <span>Inicio</span></a>
+            <a href="areas.html">📚 <span>Áreas</span></a>
+            <a href="praticar.html">✍️ <span>Practicar</span></a>
+            <a href="misobjetivos.html" class="active">🎯 <span>Mis objetivos</span></a>
+            <a href="admin.html" id="enlaceAdmin" hidden>🛠️ <span>Administración</span></a>
+        </nav>
+    </aside>
+
+    <header>
+        <a href="../index.html" class="logo marca">
+            <img src="../img/logo.png" alt="" width="48" height="48">
+            <span>NIVELSABER</span>
+        </a>
+        <nav class="nav-top">
+            <ul>
+                <li><a href="praticar.html">PRÁCTICAS</a></li>
+            </ul>
+            <div class="nav-acciones">
+                <button type="button" class="btn-tema" id="btnTema" title="Cambiar tema">🌙</button>
+                <a href="perfil.html" class="perfil-chip">
+                    <span class="perfil-avatar">E</span>
+                    <span class="perfil-nombre">Estudiante Demo</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="saludo">
+            <h1>🎯 Mis objetivos</h1>
+            <p>Define tus metas y revisa cuánto llevas</p>
+        </div>
+
+        <!-- Resumen real (lo rellena js/objetivos.js) -->
+        <div class="kpis-grid">
+            <div class="kpi-card precision">
+                <span class="kpi-valor" id="kpiActivos">—</span>
+                <span class="kpi-etiqueta">📌 Objetivos activos</span>
+            </div>
+            <div class="kpi-card ok">
+                <span class="kpi-valor" id="kpiCompletados">—</span>
+                <span class="kpi-etiqueta">✅ Completados</span>
+            </div>
+            <div class="kpi-card tiempo">
+                <span class="kpi-valor" id="kpiPrecision">—</span>
+                <span class="kpi-etiqueta">🎯 Precisión global</span>
+            </div>
+        </div>
+
+        <div class="panel-graficas">
+            <!-- Avance de los objetivos propios -->
+            <div class="grafica-caja">
+                <h3>Avance de tus objetivos</h3>
+                <div class="barras" id="listaObjetivos">
+                    <p class="objetivo-vacio">Cargando objetivos…</p>
+                </div>
+            </div>
+
+            <!-- Crear un objetivo nuevo -->
+            <div class="grafica-caja">
+                <h3>Nuevo objetivo</h3>
+                <form class="objetivo-form" id="formObjetivo">
+                    <label for="tipoObjetivo">Quiero</label>
+                    <select id="tipoObjetivo">
+                        <option value="preguntas">Completar preguntas respondidas</option>
+                        <option value="practicas">Terminar prácticas</option>
+                        <option value="areas">Practicar áreas distintas</option>
+                        <option value="precision">Subir mi precisión</option>
+                    </select>
+
+                    <label for="metaObjetivo">Meta</label>
+                    <input type="number" id="metaObjetivo" min="1" max="100000"
+                           value="50" required>
+
+                    <p class="mensaje" id="mensajeObjetivo" role="status"></p>
+
+                    <button type="submit" class="btn-principal">Crear objetivo</button>
+                </form>
+                <p class="objetivo-ayuda">
+                    Aquí no hay metas precargadas: sólo existen las que tú crees y el avance
+                    se calcula solo con tus respuestas y prácticas reales.
+                </p>
+            </div>
+        </div>
+
+        <div class="caja-texto">
+            <h2>¿Cómo cumplir tus objetivos? 🚀</h2>
+            <p>
+                Entra a <strong>Áreas</strong>, elige el tema que menos domines y completa su
+                práctica. Cada respuesta que revises suma sola en el avance: cuando una barra
+                llegue al 100 % verás <strong>✓ completado</strong>, y con la ✕ puedes borrar
+                un objetivo y crear uno nuevo cuando quieras.
+            </p>
+            <a class="btn-principal" href="areas.html">Ir a las áreas →</a>
+        </div>
+    </main>
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/sesion.js?v=3"></script>
+    <script src="../js/util.js?v=2"></script>
+    <script src="../js/objetivos.js?v=2"></script>
+    <script src="../js/tema.js?v=2"></script>
+
+</body>
+</html>

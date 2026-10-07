@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/base.css?v=2">
+<link rel="stylesheet" href="../css/admin.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.setAttribute('data-tema', localStorage.getItem('tema') || 'claro');</script>
+    <title>Administración | NIVELSABER</title>
+    
+    
+    
+    
+    
+    <!-- El panel sólo aparece cuando admin.js confirma el rol admin
+         (clase rol-verificado): un estudiante que abra esta página a
+         mano nunca llega a ver el contenido mientras se redirige. -->
+    <style>
+        html:not(.rol-verificado) main,
+        html:not(.rol-verificado) .sidebar {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="con-sidebar" data-requiere-sesion data-rol-requerido="admin">
+
+    <!-- Barra lateral de secciones -->
+    <aside class="sidebar">
+        <p class="sidebar-titulo">SECCIONES</p>
+        <nav>
+            <a href="#" class="active" data-pestana="banco">📋 <span>Áreas y preguntas</span></a>
+            <a href="#" data-pestana="detalle">🔍 <span>Detalle del área</span></a>
+            <a href="#" data-pestana="estudiantes">👥 <span>Estudiantes</span></a>
+        </nav>
+    </aside>
+
+    <header>
+        <a href="admin.html" class="logo marca">
+            <img src="../img/logo.png" alt="" width="48" height="48">
+            <span>NIVELSABER</span>
+        </a>
+        <nav class="nav-top">
+            <div class="nav-acciones">
+                <button type="button" class="btn-tema" id="btnTema" title="Cambiar tema">🌙</button>
+                <span class="perfil-chip">
+                    <span class="perfil-avatar">A</span>
+                    <span class="perfil-nombre">Administrador</span>
+                </span>
+                <button type="button" class="admin-btn" id="btnCerrarSesion">Cerrar sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="saludo">
+            <h1>🛠️ Administración</h1>
+            <p>Administra las áreas, preguntas y opciones de respuesta</p>
+        </div>
+
+        <!-- Sección 1: banco de preguntas (contenido original) -->
+        <div id="pestanaBanco" class="admin-pestana-contenido">
+
+        <section class="admin-areas">
+            <h2>Áreas</h2>
+            <form id="formArea" class="admin-area-form">
+                <label for="nombreArea">Nueva área</label>
+                <input type="text" id="nombreArea" maxlength="100" required>
+                <button type="submit" class="admin-btn primario">Crear área</button>
+            </form>
+            <p class="mensaje" id="mensajeArea" role="status"></p>
+            <div id="listaAreas"></div>
+        </section>
+
+        <div class="admin-barra">
+            <label for="selArea">Área:</label>
+            <select id="selArea"></select>
+            <button type="button" class="admin-btn primario" id="btnNueva">+ Nueva pregunta</button>
+        </div>
+
+        <!-- Formulario para crear o editar una pregunta (oculto al cargar) -->
+        <form class="admin-formulario" id="formulario" hidden>
+            <h2 id="tituloFormulario">Nueva pregunta</h2>
+
+            <label>Enunciado
+                <textarea id="fEnunciado" rows="3" required></textarea>
+            </label>
+
+            <div class="admin-fila">
+                <label>Módulo
+                    <input type="text" id="fModulo" placeholder="Ej: Aritmética">
+                </label>
+                <label>Tema
+                    <input type="text" id="fTema" placeholder="Ej: Porcentajes">
+                </label>
+            </div>
+
+            <label>Retroalimentación (se muestra al revisar la respuesta)
+                <textarea id="fRetro" rows="2"></textarea>
+            </label>
+
+            <fieldset class="admin-opciones">
+                <legend>Opciones (marca la correcta)</legend>
+                <div class="admin-opcion">
+                    <input type="radio" name="correcta" id="correcta0" value="0">
+                    <span class="letra">A)</span>
+                    <input type="text" id="fOpcion0" placeholder="Texto de la opción A">
+                </div>
+                <div class="admin-opcion">
+                    <input type="radio" name="correcta" id="correcta1" value="1">
+                    <span class="letra">B)</span>
+                    <input type="text" id="fOpcion1" placeholder="Texto de la opción B">
+                </div>
+                <div class="admin-opcion">
+                    <input type="radio" name="correcta" id="correcta2" value="2">
+                    <span class="letra">C)</span>
+                    <input type="text" id="fOpcion2" placeholder="Texto de la opción C">
+                </div>
+                <div class="admin-opcion">
+                    <input type="radio" name="correcta" id="correcta3" value="3">
+                    <span class="letra">D)</span>
+                    <input type="text" id="fOpcion3" placeholder="Texto de la opción D">
+                </div>
+            </fieldset>
+
+            <p class="mensaje" id="mensajeFormulario"></p>
+
+            <div class="admin-acciones-form">
+                <button type="submit" class="admin-btn primario" id="btnGuardar">Guardar</button>
+                <button type="button" class="admin-btn" id="btnCancelar">Cancelar</button>
+            </div>
+        </form>
+
+            <!-- Lista de preguntas del área elegida -->
+            <div id="listaPreguntas"></div>
+
+        </div>
+
+        <!-- Sección 2: detalle completo del área elegida -->
+        <div id="pestanaDetalle" class="admin-pestana-contenido" hidden>
+            <div class="admin-barra">
+                <label for="selAreaDetalle">Área:</label>
+                <select id="selAreaDetalle"></select>
+                <button type="button" class="admin-btn" id="btnActualizarDetalle">Actualizar</button>
+            </div>
+            <div id="detalleArea">
+                <p class="admin-vacio">Cargando áreas…</p>
+            </div>
+        </div>
+
+        <!-- Sección 3: cuentas registradas (estudiantes y administradores) -->
+        <div id="pestanaEstudiantes" class="admin-pestana-contenido" hidden>
+            <div class="admin-barra">
+                <label for="selRolUsuarios">Mostrar:</label>
+                <select id="selRolUsuarios">
+                    <option value="">Todos</option>
+                    <option value="estudiante">Estudiantes</option>
+                    <option value="admin">Administradores</option>
+                </select>
+                <span class="admin-cuenta" id="cuentaUsuarios"></span>
+                <button type="button" class="admin-btn" id="btnActualizarEstudiantes">Actualizar</button>
+            </div>
+            <div id="listaEstudiantes">
+                <p class="admin-vacio">Cargando cuentas…</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/sesion.js?v=3"></script>
+    <script src="../js/util.js?v=2"></script>
+    <script src="../js/admin.js?v=3"></script>
+    <script src="../js/tema.js?v=2"></script>
+
+</body>
+</html>

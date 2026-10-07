@@ -1,0 +1,5 @@
+# Dependencias del backend de NIVELSABER.
+# Instalar con:  venv/bin/pip install -r backend/requirements.txt
+Flask>=3.1
+PyMySQL>=1.1
+gunicorn>=23.0

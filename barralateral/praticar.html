@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/base.css?v=2">
+<link rel="stylesheet" href="../css/paginas.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practicar | NIVELSABER</title>
+    <script>document.documentElement.setAttribute('data-tema', localStorage.getItem('tema') || 'claro');</script>
+    
+    
+    
+    
+    
+</head>
+<body class="con-sidebar" data-requiere-sesion data-rol-requerido="estudiante">
+
+    <aside class="sidebar">
+        <p class="sidebar-titulo">SECCIONES</p>
+        <nav>
+            <a href="../index.html">🏠 <span>Inicio</span></a>
+            <a href="areas.html">📚 <span>Áreas</span></a>
+            <a href="praticar.html" class="active">✍️ <span>Practicar</span></a>
+            <a href="misobjetivos.html">🎯 <span>Mis objetivos</span></a>
+            <a href="admin.html" id="enlaceAdmin" hidden>🛠️ <span>Administración</span></a>
+        </nav>
+    </aside>
+
+    <header>
+        <a href="../index.html" class="logo marca">
+            <img src="../img/logo.png" alt="" width="48" height="48">
+            <span>NIVELSABER</span>
+        </a>
+        <nav class="nav-top">
+            <ul>
+                <li><a href="praticar.html">PRÁCTICAS</a></li>
+            </ul>
+            <div class="nav-acciones">
+                <button type="button" class="btn-tema" id="btnTema" title="Cambiar tema">🌙</button>
+                <a href="perfil.html" class="perfil-chip">
+                    <span class="perfil-avatar">E</span>
+                    <span class="perfil-nombre">Estudiante Demo</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="saludo">
+            <h1>✍️ Resultados de tu práctica</h1>
+            <p id="subtitulo">Este es el detalle de tu última prueba</p>
+        </div>
+
+        <!-- Sin prácticas todavía -->
+        <div class="resultado-vacio" id="vacio" hidden>
+            <span class="resultado-vacio-icono">📊</span>
+            <p>Aún no has practicado. Elige un área y responde tus primeras preguntas para ver aquí tus resultados.</p>
+            <a class="btn-secundario" href="areas.html">📚 Elegir un área</a>
+        </div>
+
+        <!-- Con datos reales de la base de datos -->
+        <div id="cuerpo" hidden>
+
+            <div class="pestanas" role="tablist" aria-label="Vistas de resultados">
+                <button type="button" class="pestana activa" id="pestana-ultima"
+                        data-pestana="ultima" role="tab" aria-selected="true"
+                        aria-controls="panel-ultima">📈 Última</button>
+                <button type="button" class="pestana" id="pestana-historial"
+                        data-pestana="historial" role="tab" aria-selected="false"
+                        aria-controls="panel-historial">🗓️ Historial</button>
+                <button type="button" class="pestana" id="pestana-temas"
+                        data-pestana="temas" role="tab" aria-selected="false"
+                        aria-controls="panel-temas">🎯 Por tema</button>
+            </div>
+
+            <!-- ============ Pestaña 1: última práctica ============ -->
+            <section id="panel-ultima" role="tabpanel" aria-labelledby="pestana-ultima" tabindex="0">
+
+            <p class="resultado-taller" id="resultadoTaller"></p>
+            <div class="kpis-grid">
+                <div class="kpi-card ok">
+                    <span class="kpi-valor" id="kpiCorrectas">0</span>
+                    <span class="kpi-etiqueta">✅ Correctas</span>
+                </div>
+                <div class="kpi-card error">
+                    <span class="kpi-valor" id="kpiIncorrectas">0</span>
+                    <span class="kpi-etiqueta">❌ Incorrectas</span>
+                </div>
+                <div class="kpi-card precision">
+                    <span class="kpi-valor" id="kpiPrecision">0%</span>
+                    <span class="kpi-etiqueta">🎯 Precisión</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-valor" id="kpiPreguntas">0</span>
+                    <span class="kpi-etiqueta">📚 Preguntas</span>
+                </div>
+            </div>
+
+            <div class="panel-graficas">
+                <div class="grafica-caja">
+                    <h3>Aciertos vs errores</h3>
+                    <svg class="dona" viewBox="0 0 180 180" role="img" aria-label="Porcentaje de respuestas correctas">
+                        <circle cx="90" cy="90" r="70" fill="none" stroke="#E3F2FD" stroke-width="22"></circle>
+                        <circle id="donaRelleno" cx="90" cy="90" r="70" fill="none" stroke="#43a047" stroke-width="22"
+                                stroke-linecap="round" stroke-dasharray="0 439.82"
+                                transform="rotate(-90 90 90)"></circle>
+                        <text x="90" y="86" text-anchor="middle" font-size="34" font-weight="700" fill="#1A237E" id="donaPorcentaje">0%</text>
+                        <text x="90" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#64748b">de aciertos</text>
+                    </svg>
+                    <div class="dona-leyenda">
+                        <span><i class="punto verde"></i><span id="leyendaCorrectas">0</span> correctas</span>
+                        <span><i class="punto rojo"></i><span id="leyendaIncorrectas">0</span> incorrectas</span>
+                    </div>
+                </div>
+
+                <div class="grafica-caja">
+                    <h3>Desempeño por área</h3>
+                    <div class="barras" id="barrasAreas"></div>
+                </div>
+            </div>
+
+            <div id="bloqueDetalle">
+                <a class="btn-secundario" href="#detalle-preguntas">🔍 Ver detalle</a>
+
+                <h2 class="detalle-titulo" id="detalle-preguntas">Detalle de preguntas incorrectas</h2>
+                <div class="detalle-preguntas" id="detallePreguntas"></div>
+            </div>
+
+            </section>
+
+            <!-- ============ Pestaña 2: historial ============ -->
+            <section id="panel-historial" role="tabpanel" aria-labelledby="pestana-historial" tabindex="0" hidden>
+
+                <div class="hist-filtros" id="histFiltros" hidden></div>
+
+                <div class="hist-lista" id="histLista"></div>
+
+                <div class="resultado-vacio" id="histVacio" hidden>
+                    <span class="resultado-vacio-icono">🗓️</span>
+                    <p>No hay prácticas guardadas con ese filtro.</p>
+                </div>
+
+                <div class="paginacion" id="histPaginacion" hidden>
+                    <button type="button" class="pag-btn" id="pagAnterior">← Anterior</button>
+                    <span class="pag-info" id="pagInfo">Página 1 de 1</span>
+                    <button type="button" class="pag-btn" id="pagSiguiente">Siguiente →</button>
+                </div>
+
+            </section>
+
+            <!-- ============ Pestaña 3: desempeño por tema ============ -->
+            <section id="panel-temas" role="tabpanel" aria-labelledby="pestana-temas" tabindex="0" hidden>
+
+                <p class="hist-nota">
+                    Ordenado de menor a mayor precisión: lo que aparece arriba es lo que más
+                    debes reforzar.
+                </p>
+
+                <div class="grafica-caja">
+                    <h3>Tus temas</h3>
+                    <div class="barras" id="barrasTemas"></div>
+                </div>
+
+                <div class="resultado-vacio" id="temasVacio" hidden>
+                    <span class="resultado-vacio-icono">🎯</span>
+                    <p>Aún no hay respuestas suficientes para mostrar tu desempeño por tema.</p>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/sesion.js?v=3"></script>
+    <script src="../js/util.js?v=2"></script>
+    <script src="../js/resultados.js?v=2"></script>
+    <script src="../js/tema.js?v=2"></script>
+
+</body>
+</html>

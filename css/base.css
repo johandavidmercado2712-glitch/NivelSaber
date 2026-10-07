@@ -1,0 +1,754 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        /* ============================================================
+           PALETA NIVELSABER — colores del proyecto
+           El modo OSCURO solo reescribe estas mismas variables
+           (ver css/tema.css), así todo el sitio cambia de golpe.
+           ============================================================ */
+        :root {
+            /* ---------- BLOQUE A: colores generales ---------- */
+            --azul: #4B5FE2;
+            --azul-claro: #E8F3FF;
+
+            --morado: #7357E8;
+            --morado-claro: #EDE9FF;
+            --lila: #DCD7FF;
+
+            --rosado: #E84FA3;
+            --rosado-claro: #FFE4F2;
+
+            --celeste: #DDEEFF;
+            --blanco: #FFFFFF;
+            --fondo: #F7F7FF;
+
+            --texto: #26316B;
+            --texto-suave: #4A5488;
+
+            /* ---------- BLOQUE A: colores de cada área ---------- */
+            --lectura: #BFA2FF;
+            --matematicas: #5AA9FF;
+            --naturales: #72D6A3;
+            --sociales: #FFC46B;
+            --ingles: #F58ACB;
+
+            /* ---------- BLOQUE B: derivados ----------
+               Mismos colores con el rol que ya usan las hojas de estilo. */
+
+            /* Superficies y bordes */
+            --superficie: var(--blanco);
+            --superficie-2: var(--morado-claro);
+            --borde: var(--celeste);
+            --borde-fuerte: #7B8DE0;
+
+            /* Títulos y acentos de texto */
+            --titulo: #5B3FD1;
+            --rosado-oscuro: #CE3180;
+            --rosado-suave: var(--rosado-claro);
+            --rosado-tenue: #FFD1E7;
+            --morado-oscuro: #5B3FD1;
+            --morado-suave: var(--morado-claro);
+
+            /* Cromo: cabecera y barra lateral (lila plano) */
+            --cromo: var(--lila);
+            --cromo-lateral: var(--lila);
+            --cromo-texto: var(--texto);
+            --cromo-hover: rgba(255, 255, 255, 0.72);
+            --cromo-hover-alto: var(--blanco);
+            --cromo-borde: var(--texto-suave);
+
+            /* Estados */
+            --ok: #2E7D32;
+            --ok-fondo: #E8F5E9;
+            --ok-borde: #C8E6C9;
+            --error: #C62828;
+            --error-fondo: #FDECEA;
+            --error-borde: #F9CDD3;
+
+            /* Aviso (precisión media, badge "Reforzar") */
+            --aviso: #92400E;
+            --aviso-relleno: #E09100;
+            --aviso-fondo: #FFF4E5;
+            --aviso-borde: #F5D9A8;
+
+            /* Sombras y foco */
+            --sombra: 0 4px 12px rgba(38, 49, 107, 0.10);
+            --sombra-alta: 0 10px 25px rgba(38, 49, 107, 0.16);
+            --foco: 0 0 0 3px rgba(232, 79, 163, 0.28);
+
+            /* Degradados reutilizables */
+            --degradado-primario: linear-gradient(90deg, #4B5FE2, #7357E8, #CE3180);
+            --degradado-avatares: linear-gradient(135deg, #4B5FE2, #CE3180);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto);
+        }
+
+        /* Barra de navegación */
+        header {
+            background: var(--cromo);
+            color: var(--cromo-texto);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .marca {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            white-space: nowrap;
+            font-size: 1.45rem;
+        }
+
+        .marca img {
+            display: block;
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .header-izq {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-volver {
+            background-color: transparent;
+            border: 1px solid var(--cromo-borde);
+            color: var(--cromo-texto);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            border-color: var(--rosado);
+            background-color: var(--cromo-hover);
+        }
+
+        /* El atributo hidden debe ganar SIEMPRE. Reglas como
+           ".sidebar a { display: flex }" o ".admin-formulario { display: grid }"
+           tenían más peso que el atributo y mostraban elementos ocultos
+           (el enlace de Administración se veía incluso en cuentas de
+           estudiante, y el formulario de preguntas nunca se cerraba).
+           Con esta regla global el comportamiento es el esperado y los
+           parches puntuales dejan de hacer falta. */
+        [hidden] {
+            display: none !important;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: var(--cromo-texto);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--texto);
+            text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+
+        /* Contenido principal */
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .saludo h1 {
+            font-size: 2rem;
+            color: var(--titulo);
+            margin-bottom: 5px;
+        }
+
+        .saludo p {
+            color: var(--rosado-oscuro);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* Tarjetas de Áreas — cada una con su color */
+        .areas-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .tarjeta-area {
+            /* fallback: si una card no trae clase de área */
+            --area: var(--morado);
+            background-color: var(--superficie);
+            background-color: color-mix(in srgb, var(--area) 16%, var(--superficie));
+            border: 2px solid var(--area);
+            border-top-width: 6px;
+            border-radius: 15px; /* Bordes suaves */
+            padding: 25px 20px;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra);
+        }
+
+        .tarjeta-area:hover {
+            background-color: color-mix(in srgb, var(--area) 30%, var(--superficie));
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-alta);
+        }
+
+        /* Clases de área: van después de .tarjeta-area para poder
+           pisar el fallback --area (misma especificidad, gana la última) */
+        .area-lectura { --area: var(--lectura); }
+        .area-matematicas { --area: var(--matematicas); }
+        .area-naturales { --area: var(--naturales); }
+        .area-sociales { --area: var(--sociales); }
+        .area-ingles { --area: var(--ingles); }
+
+        .tarjeta-area h3 {
+            font-size: 1.1rem;
+            color: var(--titulo);
+            text-align: center;
+        }
+
+        .tarjeta-icono {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .tarjeta-preguntas {
+            background-color: color-mix(in srgb, var(--area) 30%, var(--superficie));
+            color: var(--texto);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .btn-comenzar {
+            width: 100%;
+            background-color: var(--area);
+            color: #1B1430;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        .btn-comenzar:hover {
+            filter: brightness(0.9);
+        }
+
+        /* Barra de Progreso */
+        .progreso-container {
+            background-color: var(--superficie);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+            border: 2px solid var(--borde);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .progreso-etiqueta {
+            font-weight: 600;
+            color: var(--titulo);
+        }
+
+        .barra-fondo {
+            background-color: var(--borde);
+            width: 300px;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .barra-llena {
+            background: var(--degradado-primario);
+            width: 0%;
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .porcentaje {
+            font-weight: 700;
+            color: var(--rosado-oscuro);
+        }
+
+        /* Caja de texto (motivación / información) */
+        .caja-texto {
+            background-color: var(--superficie);
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--borde);
+            box-shadow: var(--sombra);
+            text-align: left;
+        }
+
+        .caja-texto h2 {
+            font-size: 1.4rem;
+            color: var(--titulo);
+            margin-bottom: 15px;
+        }
+
+        .caja-texto p {
+            color: var(--texto);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Botón principal */
+        .btn-principal {
+            display: inline-block;
+            background: var(--degradado-primario);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px 25px;
+            transition: filter 0.3s ease;
+        }
+
+        .btn-principal:hover {
+            filter: brightness(1.1);
+        }
+
+        .centrar {
+            text-align: center;
+        }
+
+        /* ===== Responsive: tablet / móvil ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .logo:not(.marca) {
+                font-size: 1.05rem;
+            }
+
+            nav ul {
+                gap: 14px;
+            }
+
+            nav ul li a {
+                font-size: 0.82rem;
+            }
+
+            main {
+                margin: 25px auto;
+                padding: 0 12px;
+            }
+
+            .saludo h1 {
+                font-size: 1.6rem;
+            }
+
+            .saludo p {
+                margin-bottom: 20px;
+            }
+
+            .tarjeta-area {
+                width: 100%;
+                max-width: 340px;
+            }
+
+            .caja-texto {
+                padding: 22px 18px;
+            }
+
+            .caja-texto h2 {
+                font-size: 1.15rem;
+            }
+
+            .caja-texto p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== Responsive: celular pequeño ===== */
+        @media (max-width: 480px) {
+            header {
+                padding: 10px 12px;
+            }
+
+            .header-izq {
+                gap: 8px;
+            }
+
+            .marca {
+                gap: 8px;
+                font-size: 1.1rem;
+            }
+
+            .marca img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .btn-volver {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            .saludo h1 {
+                font-size: 1.35rem;
+            }
+
+            .saludo p {
+                font-size: 0.9rem;
+            }
+
+            .tarjeta-area {
+                padding: 20px 15px;
+                gap: 10px;
+            }
+
+            .tarjeta-icono {
+                font-size: 2rem;
+            }
+
+            .tarjeta-area h3 {
+                font-size: 1rem;
+            }
+
+            .btn-principal,
+            .btn-comenzar {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .caja-texto {
+                padding: 18px 15px;
+            }
+        }
+/* ===== Barra lateral izquierda ===== */
+a.logo {
+    color: var(--cromo-texto);
+    text-decoration: none;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background: var(--cromo-lateral);
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: var(--sombra);
+}
+
+.sidebar-titulo {
+    color: var(--texto-suave);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cromo-texto);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 3px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: var(--cromo-hover);
+}
+
+.sidebar a.active {
+    background-color: rgba(255, 255, 255, 0.24);
+    border-left-color: var(--rosado);
+}
+
+/* El contenido queda a la derecha de la barra */
+body.con-sidebar {
+    padding-left: 230px;
+}
+
+/* Móvil: solo íconos */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 64px;
+        padding: 20px 8px;
+        align-items: center;
+    }
+
+    .sidebar-titulo {
+        font-size: 0.6rem;
+        letter-spacing: 0;
+    }
+
+    .sidebar a {
+        justify-content: center;
+        padding: 12px 0;
+        font-size: 1.2rem;
+        border-left: none;
+        width: 48px;
+    }
+
+    .sidebar a span {
+        display: none;
+    }
+
+    body.con-sidebar {
+        padding-left: 64px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 56px;
+        padding: 16px 4px;
+    }
+
+    .sidebar-titulo {
+        display: none;
+    }
+
+    .sidebar a {
+        width: 44px;
+        font-size: 1.1rem;
+    }
+
+    body.con-sidebar {
+        padding-left: 56px;
+    }
+}
+/* ===== Nav superior: tema + perfil ===== */
+.nav-top {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-acciones {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-tema {
+    background-color: var(--cromo-hover);
+    border: 1px solid var(--cromo-borde);
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-tema:hover {
+    background-color: var(--cromo-hover-alto);
+}
+
+.perfil-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--cromo-texto);
+    background-color: var(--cromo-hover);
+    border: 1px solid var(--cromo-borde);
+    border-radius: 999px;
+    padding: 5px 14px 5px 5px;
+    transition: background-color 0.3s ease;
+}
+
+.perfil-chip:hover {
+    background-color: var(--cromo-hover-alto);
+}
+
+.perfil-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--degradado-avatares);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.perfil-nombre {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .nav-top {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .nav-acciones {
+        gap: 8px;
+    }
+
+    .perfil-nombre {
+        display: none;
+    }
+
+    .perfil-chip {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-tema {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+
+    .nav-top {
+        gap: 8px;
+    }
+}
+/* ============================================================
+   TEMA OSCURO — se activa con <html data-tema="oscuro">
+   (lo aplica js/tema.js y lo guarda en localStorage).
+
+   Solo se reescriben las MISMAS variables de css/styles.css,
+   así que todo el sitio (tarjetas, botones, barras, estados)
+   cambia automáticamente sin repetir selectores.
+   ============================================================ */
+html[data-tema="oscuro"] {
+    /* Superficies */
+    --fondo: #12101F;
+    --superficie: #1C1933;
+    --superficie-2: #262144;
+    --borde: #33305A;
+    --borde-fuerte: #6E7BD9;
+
+    /* Texto */
+    --texto: #EDE9FF;
+    --texto-suave: #A9A3C9;
+    --titulo: #B9A7FF;
+
+    /* Acentos */
+    --azul: #7C8CFF;
+    --morado: #9B85FF;
+    --rosado: #FF6FA8;
+    --rosado-oscuro: #FF8FBF;
+    --rosado-suave: #3A1C33;
+    --rosado-tenue: #FFC9DF;
+    --morado-oscuro: #B0A0FF;
+    --morado-suave: #262144;
+
+    /* Cromo: cabecera y barra lateral (lila se vuelve oscuro) */
+    --cromo: #2A2450;
+    --cromo-lateral: #2A2450;
+    --cromo-texto: #EDE9FF;
+    --cromo-hover: rgba(255, 255, 255, 0.12);
+    --cromo-hover-alto: rgba(255, 255, 255, 0.24);
+
+    /* Estados */
+    --ok: #66BB6A;
+    --ok-fondo: #14351F;
+    --ok-borde: #3E7D42;
+    --error: #EF5350;
+    --error-fondo: #3A1518;
+    --error-borde: #A33A3A;
+
+    /* Aviso (precisión media, badge "Reforzar") */
+    --aviso: #FFC46B;
+    --aviso-relleno: #FFB74D;
+    --aviso-fondo: #3A2A12;
+    --aviso-borde: #7A5A20;
+
+    /* Sombras y foco */
+    --sombra: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --sombra-alta: 0 10px 25px rgba(0, 0, 0, 0.55);
+    --foco: 0 0 0 3px rgba(255, 111, 168, 0.30);
+}
+
+/* ---- Cosas con color escrito a mano en el HTML ---- */
+
+/* Texto y anillo de la gráfica de dona (praticar.html) */
+html[data-tema="oscuro"] .dona text[fill="#1A237E"] {
+    fill: #EDE9FF;
+}
+
+html[data-tema="oscuro"] .dona text[fill="#64748b"] {
+    fill: #A9A3C9;
+}
+
+html[data-tema="oscuro"] .dona circle[stroke="#E3F2FD"] {
+    stroke: #33305A;
+}
+
+html[data-tema="oscuro"] .dona circle[stroke="#43a047"] {
+    stroke: #66BB6A;
+}

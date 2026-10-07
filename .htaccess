@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^api/(.*)$ http://127.0.0.1:5000/api/$1 [P,L]
+
+# Sin caché en el navegador: así siempre se descarga la última versión
+# de HTML, CSS y JS (evita páginas viejas con scripts obsoletos) y de
+# las respuestas de la API.
+Header set Cache-Control "no-cache, must-revalidate"

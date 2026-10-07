@@ -1,0 +1,477 @@
+/* ============================================================
+   NIVELSABER - Panel de administración
+   Reutiliza las mismas variables de css/styles.css, así que
+   el tema claro/oscuro cambia automáticamente.
+   ============================================================ */
+
+/* Barra con el selector de área y el botón de nueva pregunta */
+.admin-areas {
+    text-align: left;
+    margin-bottom: 22px;
+}
+
+.admin-areas h2 {
+    color: var(--titulo);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.admin-area-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 14px 18px;
+    box-shadow: var(--sombra);
+}
+
+.admin-area-form label {
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+.admin-area-form input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 12px;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: 10px;
+    background: var(--blanco);
+    color: var(--texto);
+    font: inherit;
+}
+
+.admin-area-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    color: var(--texto-suave);
+}
+
+.admin-area-item strong {
+    color: var(--texto);
+}
+
+.admin-barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    box-shadow: var(--sombra);
+}
+
+.admin-barra label {
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+.admin-barra select {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 12px;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: 10px;
+    background: var(--blanco);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+/* Botones del panel */
+.admin-btn {
+    padding: 9px 16px;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: 10px;
+    background: var(--superficie);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.admin-btn:hover {
+    box-shadow: var(--sombra);
+    transform: translateY(-1px);
+}
+
+.admin-btn.primario {
+    background: var(--degradado-primario);
+    border: none;
+    color: var(--blanco);
+}
+
+.admin-btn.peligro {
+    background: var(--error-fondo);
+    border-color: var(--error-borde);
+    color: var(--error);
+}
+
+/* Formulario de crear/editar pregunta */
+.admin-formulario {
+    display: grid;
+    gap: 14px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 22px;
+    box-shadow: var(--sombra);
+}
+
+.admin-formulario h2 {
+    color: var(--titulo);
+    font-size: 18px;
+}
+
+.admin-formulario label {
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+.admin-formulario input[type="text"],
+.admin-formulario textarea {
+    padding: 10px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--blanco);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.admin-formulario input:focus,
+.admin-formulario textarea:focus {
+    outline: none;
+    box-shadow: var(--foco);
+}
+
+.admin-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.admin-opciones {
+    border: 1px dashed var(--borde-fuerte);
+    border-radius: 12px;
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+}
+
+.admin-opciones legend {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto-suave);
+    padding: 0 6px;
+}
+
+.admin-opcion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-opcion .letra {
+    font-weight: 700;
+    color: var(--titulo);
+    width: 24px;
+}
+
+.admin-opcion input[type="text"] {
+    flex: 1;
+}
+
+.admin-acciones-form {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Mensajes de éxito/error dentro del formulario */
+.mensaje {
+    display: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.mensaje.exito {
+    display: block;
+    background: var(--ok-fondo);
+    border: 1px solid var(--ok-borde);
+    color: var(--ok);
+}
+
+.mensaje.error {
+    display: block;
+    background: var(--error-fondo);
+    border: 1px solid var(--error-borde);
+    color: var(--error);
+}
+
+/* Tarjetas de la lista de preguntas */
+.admin-tarjeta {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--sombra);
+}
+
+.admin-num {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.admin-enunciado {
+    font-weight: 600;
+    color: var(--texto);
+    margin: 4px 0;
+}
+
+.admin-tema {
+    font-size: 13px;
+    color: var(--texto-suave);
+}
+
+.admin-correcta {
+    font-size: 14px;
+    color: var(--ok);
+    font-weight: 600;
+    margin: 6px 0 10px;
+}
+
+.admin-botones {
+    display: flex;
+    gap: 8px;
+}
+
+.admin-vacio {
+    background: var(--superficie-2);
+    border: 1px dashed var(--borde-fuerte);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    color: var(--texto-suave);
+}
+
+@media (max-width: 640px) {
+    .admin-fila {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ------------------------------------------------------------
+   Indicadores del detalle de un área
+   ------------------------------------------------------------ */
+.admin-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.admin-kpi {
+    display: grid;
+    gap: 4px;
+    text-align: center;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: var(--sombra);
+}
+
+.admin-kpi-valor {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--titulo);
+}
+
+.admin-kpi-etiqueta {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.admin-subtitulo {
+    color: var(--titulo);
+    font-weight: 700;
+    margin: 6px 0 12px;
+}
+
+/* Opciones de cada pregunta con el número de respuestas recibidas */
+.admin-opciones-detalle {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.admin-opciones-detalle li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: var(--superficie-2);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: var(--texto-suave);
+}
+
+.admin-opciones-detalle .letra {
+    font-weight: 700;
+    color: var(--titulo);
+}
+
+.admin-opciones-detalle .texto {
+    flex: 1;
+    min-width: 140px;
+}
+
+.admin-opciones-detalle .conteo {
+    font-size: 13px;
+}
+
+.admin-opciones-detalle li.correcta {
+    background: var(--ok-fondo);
+    border-color: var(--ok-borde);
+    color: var(--ok);
+}
+
+.admin-opciones-detalle li.correcta .letra {
+    color: var(--ok);
+}
+
+.admin-opciones-detalle .marca {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-retro {
+    font-size: 14px;
+    color: var(--texto-suave);
+    background: var(--superficie-2);
+    border-left: 4px solid var(--borde-fuerte);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+/* ------------------------------------------------------------
+   Tabla de estudiantes registrados
+   ------------------------------------------------------------ */
+.admin-tabla-envoltura {
+    overflow-x: auto;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    box-shadow: var(--sombra);
+}
+
+.admin-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-tabla th,
+.admin-tabla td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--borde);
+    color: var(--texto-suave);
+}
+
+.admin-tabla th {
+    background: var(--superficie-2);
+    color: var(--titulo);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.admin-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-tabla tbody tr:hover td {
+    background: var(--superficie-2);
+}
+
+.admin-chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.admin-chip.admin {
+    background: var(--morado-claro);
+    color: var(--morado-oscuro);
+}
+
+.admin-chip.estudiante {
+    background: var(--azul-claro);
+    color: var(--azul);
+}
+
+.admin-cuenta {
+    font-size: 14px;
+    color: var(--texto-suave);
+}
+
+@media (max-width: 640px) {
+    .admin-tabla thead {
+        display: none;
+    }
+
+    .admin-tabla tr {
+        display: block;
+        border-bottom: 1px solid var(--borde);
+        padding: 6px 0;
+    }
+
+    .admin-tabla td {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        border-bottom: none;
+    }
+
+    .admin-tabla td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--titulo);
+    }
+}

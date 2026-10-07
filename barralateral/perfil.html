@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/base.css?v=2">
+<link rel="stylesheet" href="../css/paginas.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | NIVELSABER</title>
+    <script>document.documentElement.setAttribute('data-tema', localStorage.getItem('tema') || 'claro');</script>
+    
+    
+    
+    
+    
+    
+</head>
+<body class="con-sidebar" data-requiere-sesion data-rol-requerido="estudiante">
+
+    <aside class="sidebar">
+        <p class="sidebar-titulo">SECCIONES</p>
+        <nav>
+            <a href="../index.html">🏠 <span>Inicio</span></a>
+            <a href="areas.html">📚 <span>Áreas</span></a>
+            <a href="praticar.html">✍️ <span>Practicar</span></a>
+            <a href="misobjetivos.html">🎯 <span>Mis objetivos</span></a>
+            <a href="admin.html" id="enlaceAdmin" hidden>🛠️ <span>Administración</span></a>
+        </nav>
+    </aside>
+
+    <header>
+        <a href="../index.html" class="logo marca">
+            <img src="../img/logo.png" alt="" width="48" height="48">
+            <span>NIVELSABER</span>
+        </a>
+        <nav class="nav-top">
+            <ul>
+                <li><a href="praticar.html">PRÁCTICAS</a></li>
+            </ul>
+            <div class="nav-acciones">
+                <button type="button" class="btn-tema" id="btnTema" title="Cambiar tema">🌙</button>
+                <a href="perfil.html" class="perfil-chip">
+                    <span class="perfil-avatar">E</span>
+                    <span class="perfil-nombre">Estudiante Demo</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="saludo">
+            <h1>👤 Mi perfil</h1>
+            <p>Esta es tu información en NIVELSABER</p>
+        </div>
+
+        <div class="perfil-card">
+            <div class="perfil-avatar-grande" id="perfilAvatar">E</div>
+            <h2 id="perfilNombre">Cargando…</h2>
+            <p class="perfil-email" id="perfilCorreo">—</p>
+            <span class="perfil-badge">Estudiante · Saber 11</span>
+
+            <div class="perfil-datos">
+                <div class="perfil-dato">Colegio<b>Institución Educativa Demo</b></div>
+                <div class="perfil-dato">Grado<b>11º</b></div>
+                <div class="perfil-dato">Jornada<b>Mañana</b></div>
+            </div>
+        </div>
+
+        <div class="kpis-grid">
+            <div class="kpi-card precision">
+                <span class="kpi-valor" id="kpiPrecision">—</span>
+                <span class="kpi-etiqueta">🎯 Precisión global</span>
+            </div>
+            <div class="kpi-card ok">
+                <span class="kpi-valor" id="kpiPracticas">—</span>
+                <span class="kpi-etiqueta">✍️ Prácticas realizadas</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-valor" id="kpiAreas">—</span>
+                <span class="kpi-etiqueta">📚 Áreas completadas</span>
+            </div>
+        </div>
+
+        <div class="centrar">
+            <button type="button" class="btn-secundario" id="btnSalir">Cerrar sesión</button>
+        </div>
+    </main>
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/sesion.js?v=3"></script>
+    <script src="../js/perfil.js?v=2"></script>
+    <script src="../js/tema.js?v=2"></script>
+
+</body>
+</html>

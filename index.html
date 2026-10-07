@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="css/base.css?v=3">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.setAttribute('data-tema', localStorage.getItem('tema') || 'claro');</script>
+    <title>NIVELSABER | Práctica. Aprende. Avanza.</title>
+    
+    
+    
+    
+</head>
+<body class="con-sidebar" data-requiere-sesion data-rol-requerido="estudiante">
+
+    <!-- Barra lateral de secciones -->
+    <aside class="sidebar">
+        <p class="sidebar-titulo">SECCIONES</p>
+        <nav>
+            <a href="index.html" class="active">🏠 <span>Inicio</span></a>
+            <a href="barralateral/areas.html">📚 <span>Áreas</span></a>
+            <a href="barralateral/praticar.html">✍️ <span>Practicar</span></a>
+            <a href="barralateral/misobjetivos.html">🎯 <span>Mis objetivos</span></a>
+            <a href="barralateral/admin.html" id="enlaceAdmin" hidden>🛠️ <span>Administración</span></a>
+        </nav>
+    </aside>
+
+    <!-- Estructura HTML -->
+    <header>
+        <a href="index.html" class="logo marca">
+            <img src="img/logo.png" alt="" width="52" height="52">
+            <span>NIVELSABER</span>
+        </a>
+        <nav class="nav-top">
+            <ul>
+                <li><a href="barralateral/praticar.html">PRÁCTICAS</a></li>
+            </ul>
+            <div class="nav-acciones">
+                <button type="button" class="btn-tema" id="btnTema" title="Cambiar tema">🌙</button>
+                <a href="barralateral/perfil.html" class="perfil-chip">
+                    <span class="perfil-avatar">E</span>
+                    <span class="perfil-nombre">Estudiante Demo</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="saludo">
+            <h1 data-saludo>¡Hola! 👋</h1>
+            <p>¿Listo para subir de nivel?</p>
+        </div>
+
+        <div class="caja-texto">
+            <h2>Cada práctica te acerca un nivel más 🚀</h2>
+            <p>
+                NIVELSABER es tu espacio de práctica para el Saber 11. Funciona así: elige un
+                área, responde las preguntas del cuestionario, revisa la retroalimentación
+                inmediata y observa cómo sube tu barra de progreso. Usa el menú de la izquierda
+                para moverte entre secciones cuando quieras.
+            </p>
+            <a class="btn-principal" href="barralateral/areas.html">Empezar ahora →</a>
+        </div>
+    </main>
+
+    <script src="js/api.js?v=2"></script>
+    <script src="js/sesion.js?v=3"></script>
+    <script src="js/tema.js?v=2"></script>
+
+</body>
+</html>
