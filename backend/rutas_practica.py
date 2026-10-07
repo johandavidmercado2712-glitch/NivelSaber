@@ -40,11 +40,11 @@ def listar_areas():
         SELECT a.id_area, a.nombre_area,
                COUNT(p.id_pregunta) AS preguntas,
                COUNT(DISTINCT CASE
-                   WHEN p.modulo LIKE 'Taller %' THEN p.modulo
+                   WHEN p.modulo LIKE 'Taller %%' THEN p.modulo
                END) AS talleres,
                SUM(CASE
                    WHEN p.id_pregunta IS NOT NULL
-                    AND (p.modulo IS NULL OR p.modulo NOT LIKE 'Taller %')
+                    AND (p.modulo IS NULL OR p.modulo NOT LIKE 'Taller %%')
                    THEN 1 ELSE 0
                END) AS preguntas_anteriores
         FROM areas a
@@ -69,9 +69,9 @@ def listar_talleres():
 
     filas = consultar(
         """
-        SELECT CASE WHEN p.modulo LIKE 'Taller %'
+        SELECT CASE WHEN p.modulo LIKE 'Taller %%'
                     THEN p.modulo ELSE '__banco_anterior__' END AS id_taller,
-               CASE WHEN p.modulo LIKE 'Taller %'
+               CASE WHEN p.modulo LIKE 'Taller %%'
                     THEN p.modulo ELSE 'Preguntas anteriores' END AS nombre_taller,
                COUNT(*) AS preguntas
         FROM preguntas p
@@ -92,7 +92,7 @@ def _consultar_banco(cursor, id_area, id_taller=None):
     if id_taller == "__banco_anterior__":
         consulta = consulta.replace(
             "WHERE p.id_area = %s",
-            "WHERE p.id_area = %s AND (p.modulo IS NULL OR p.modulo NOT LIKE 'Taller %')",
+            "WHERE p.id_area = %s AND (p.modulo IS NULL OR p.modulo NOT LIKE 'Taller %%')",
         )
     elif id_taller:
         consulta = consulta.replace(

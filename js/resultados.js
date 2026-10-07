@@ -37,6 +37,18 @@ let areaActual = "";
 // Utilidades
 // ------------------------------------------------------------------
 
+function escResultado(valor) {
+    return String(valor ?? "").replace(/[&<>"']/g, function (caracter) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+        }[caracter];
+    });
+}
+
 /**
  * "2026-10-05 19:20:50" -> "5 oct 2026 · 19:20".
  * Se parsea a mano: new Date() con espacio no es fiable en todos los
