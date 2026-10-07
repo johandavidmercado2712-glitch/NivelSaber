@@ -160,13 +160,18 @@ puede terminar en un `405 Method Not Allowed`.
 El backend acepta estas variables de conexión, que deben apuntar a una base
 remota separada para la demo:
 
-| Variable preferida | Alternativa Railway | Valor local predeterminado |
+| Variable preferida | Alternativas aceptadas | Valor local predeterminado |
 | --- | --- | --- |
 | `DB_HOST` | `MYSQLHOST` | `127.0.0.1` |
 | `DB_PORT` | `MYSQLPORT` | `3306` |
-| `DB_NAME` | `MYSQLDATABASE` | `nivelesaber` |
+| `DB_NAME` | `MYSQL_DATABASE`, `MYSQLDATABASE` | `nivelesaber` |
 | `DB_USER` | `MYSQLUSER` | `root` |
-| `DB_PASSWORD` | `MYSQLPASSWORD` | Vacío |
+| `DB_PASSWORD` | `MYSQLPASSWORD`, `MYSQL_ROOT_PASSWORD` | Vacío |
+
+Si existen el nombre preferido y una alternativa, `DB_*` tiene prioridad.
+Para el nombre de la base, después se revisa `MYSQL_DATABASE` y luego
+`MYSQLDATABASE`. `MYSQL_URL` y `MYSQL_PUBLIC_URL` no se leen directamente:
+el backend toma los datos de conexión de las variables individuales.
 
 Para alojarla, el repositorio incluye `Procfile`, `render.yaml`,
 `railway.json`, `backend/gunicorn.conf.py` y un `requirements.txt` de raíz

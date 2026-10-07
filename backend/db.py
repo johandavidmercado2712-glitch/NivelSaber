@@ -12,14 +12,15 @@ from flask import g
 from pymysql.cursors import DictCursor
 
 
-def variable(nombre, alternativo, predeterminado):
-    """Lee una variable DB_* y acepta como alternativa la convención MYSQL*."""
-    valor = os.environ.get(nombre)
-    if valor is not None:
-        return valor
-    valor = os.environ.get(alternativo)
-    if valor is not None:
-        return valor
+def variable(nombre, alternativo, predeterminado, *alternativas):
+    """Lee variables por prioridad: nombre DB_*, alias y valor predeterminado."""
+    alias_por_nombre = {
+        "DB_PASSWORD": ("MYSQL_ROOT_PASSWORD",),
+    }
+    for clave in (nombre, *alternativas, alternativo, *alias_por_nombre.get(nombre, ())):
+        valor = os.environ.get(clave)
+        if valor is not None:
+            return valor
     return predeterminado
 
 
@@ -30,7 +31,9 @@ def conectar():
         port=int(variable("DB_PORT", "MYSQLPORT", "3306")),
         user=variable("DB_USER", "MYSQLUSER", "root"),
         password=variable("DB_PASSWORD", "MYSQLPASSWORD", ""),
-        database=variable("DB_NAME", "MYSQLDATABASE", "nivelesaber"),
+        database=variable(
+            "DB_NAME", "MYSQLDATABASE", "nivelesaber", "MYSQL_DATABASE"
+        ),
         charset="utf8mb4",
         cursorclass=DictCursor,
         autocommit=False,
